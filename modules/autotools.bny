@@ -12,12 +12,12 @@ module autotools {
   action configure {
     properties {
       (string) command "./configure"
-      (string) prefix (var)env::prefix
+      (string) prefix (prop)env::prefix
       (list) enable "shared"
       (list) disable "static"
       (list) with
       (list) without
-      (string) target (var)env::target
+      (string) target (prop)env::target
     }
 
     // Begin writing a shell script
@@ -25,18 +25,18 @@ module autotools {
       emit (prop)command "--prefix=" (prop)prefix
       with enable {
         emit " "
-        foreach prop enable {
-          emit "--enable-" (var)prop
+        foreach item enable {
+          emit "--enable-" (var)item
         }
       }
       with disable {
         emit " "
         foreach prop disable {
-          emit "--disable-" (var)prop
+          emit "--disable-" (var)item
         }
       }
       with target {
-        emit " --target=" (var)env::target
+        emit " --target=" (prop)target
       }
       emit_newline
     }
