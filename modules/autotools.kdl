@@ -1,6 +1,8 @@
 // SPDX-FileCopyrightText: 2026 Ikey Doherty
 // SPDX-License-Identifier: MPL-2.0
 
+(barney)version 1
+
 // Autotools module
 //
 // Configure & build classical `configure/make/install` projects
