@@ -1,16 +1,14 @@
 // SPDX-FileCopyrightText: 2026 Ikey Doherty
 // SPDX-License-Identifier: MPL-2.0
 
-(barney)version 1
+(bny::recipe)version 1
 
-package "systemd" {
-    metadata {
-        version "261.4"
-        release 1
+recipe systemd {
+    version "261.4"
+    release 1
 
-        summary "System and service manager"
-        description "systemd is a suite of basic building blocks for a Linux system."
-    }
+    summary "System and service manager"
+    description "systemd is a suite of basic building blocks for a Linux system."
 
     properties {
         (bool)with_utillinux #true
@@ -20,12 +18,13 @@ package "systemd" {
         with_utillinux #false
     }
 
-    depends {
-        build {
-            (binary)make
-            systemd variant="bootstrap" conflicts=(prop)with_utillinux
-            util-linux if=(prop)with_utillinux
+    requires {
+        (binary)make
+        match (prop)with_utillinux {
+            when #true {
+                systemd variant="bootstrap"
+                util-linux
+            } otherwise { }
         }
     }
-
 }

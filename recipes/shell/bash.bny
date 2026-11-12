@@ -1,31 +1,30 @@
 // SPDX-FileCopyrightText: 2026 Ikey Doherty
 // SPDX-License-Identifier: MPL-2.0
 
-(barney)version 1
+(bny::recipe)version 1
 
-package "bash" {
-    metadata {
-        version "5.3"
-        release 1
-        homepage "http://tiswww.case.edu/php/chet/bash/bashtop.html"
+recipe bash {
+    version "5.3"
+    release 1
 
-        summary "GNU Bash"
-        description """Bash is an sh-compatible command language interpreter that executes
-    commands read from the standard input or from a file.  Bash also
-    incorporates useful features from the Korn and C shells (ksh and csh)."""
-    }
+    summary "GNU Bash"
+    description """
+                Bash is an sh-compatible command language interpreter that executes
+                commands read from the standard input or from a file.  Bash also
+                incorporates useful features from the Korn and C shells (ksh and csh).
+                """
 
     sources {
         fetch "https://ftp.gnu.org/gnu/bash/bash-5.3.tar.gz" sha256sum="0d5cd86965f869a26cf64f4b71be7b96f90a3ba8b3d74e27e8e9d9d5550f31ba"
-        // file "patches/something.patch" sha256sum="blahblah"
+    }
+
+    requires {
+        binary (make)
     }
 
     build {
         autotools::configure
         autotools::make
-    }
-
-    install {
         autotools::make_install
     }
 }
